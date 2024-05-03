@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+    <link rel="stylesheet" href="/stylesheets/logo.css">
+    <link rel="stylesheet" href="/stylesheets/bigprofile.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="logo">
+        <a href="/">
+            <img src="/images/logo.svg" alt="plant Site Logo">
+        </a>
+    </div>
+
+    <div class="container mt-5">
+        <h1><%= user.username %>'s Profile</h1>
+
+        <div class="profile-info">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="bigprofile_image">
+                        <!-- 프로필 이미지. 이미지가 없는 경우 기본 이미지 표시 -->
+                        <% if(user.profile_image) { %>
+                            <img src="/uploads/profiles/<%= user.profile_image %>" alt="Profile Image" class="img-fluid rounded-circle">
+                        <% } else { %>
+                            <img src="/uploads/profiles/basic_profile.jpg" alt="basic_profile_Image" class="img-fluid rounded-circle">
+                        <% } %>
+                    </div>
+                   
+                </div>
+
+                <div class="col-md-8">
+                    <p><strong>Username:</strong> <%= user.username %></p>
+                    <p><strong>Email:</strong> <%= user.email %></p>
+                    <p id="follower-count"><strong>Followers:</strong> <span id="follower-number"><%= followerCount %></span></p> <!-- 팔로워 수 표시 -->
+                   
+                    <% if(isFollowing) { %>
+                        <button id="unfollow-btn" data-user-id="<%= user.id %>" style="display:block;" class="btn btn-primary">Unfollow</button>
+                        <button id="follow-btn" data-user-id="<%= user.id %>" style="display:none;" class="btn btn-primary">Follow</button>
+                    <% } else { %>
+                        <button id="unfollow-btn" data-user-id="<%= user.id %>" style="display:none;" class="btn btn-primary">Unfollow</button>
+                        <button id="follow-btn" data-user-id="<%= user.id %>" style="display:block;" class="btn btn-primary">Follow</button>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <!-- 사용자 레시피 목록 -->
+        <h2><%= user.username %>가 쓴 글</h2>
+        <div class="row">
+            <% posts.forEach(function(post) { %>
+                <div class="col-md-3 mb-4">
+                    <div class="post-card" onclick="location.href='/posts/<%= post.id %>'">
+    
+                        <% if (post.image_path) { %>
+                            <img src="/uploads/<%= post.image_path %>" class="card-img-top" alt="<%= post.title %>">
+                        <% } %>
+                        <div class="card-body">             
+                            <!-- <p class="card-text">By <a href="/users/profile/<%= post.author_id %>"><%= post.username %></a></p>               -->
+                            <h3 class="card-title"><%= post.title %></h3> 
+                            <p class="card-text"><strong>식물 종류:</strong> <%= post.plant_type %></p>
+                            <p class="card-text"><strong>재배 환경:</strong> <%= post.growth_environment %></p>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+
+    <script src="/javascripts/followScript.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

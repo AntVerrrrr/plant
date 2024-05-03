@@ -1,0 +1,21 @@
+.miniprofile_image a {
+    display: flex; /* Flexbox 레이아웃 사용 */
+    align-items: center; /* 이미지와 텍스트를 수직 중앙 정렬 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: white; /* 텍스트 색상을 하얀색으로 설정 */
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.miniprofile_image img {
+    width: 40px; /* 이미지 크기 조정 */
+    height: 40px; /* 이미지 크기 조정 */
+    border-radius: 50%; /* 원형 이미지 */
+    margin-right: 10px; /* 이미지와 텍스트 사이 간격 */
+}
+
+.miniprofile_image span {
+    font-size: 1.2rem; /* 텍스트 크기 조정 */
+    color: white; /* 텍스트 색상을 하얀색으로 설정 */
+}

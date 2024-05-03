@@ -1,0 +1,34 @@
+<!-- views/users/edit-profile.ejs -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/edit-profile.css">
+    <title>프로필 수정</title>
+</head>
+<body>
+    <div class="logo">
+        <a href="/">
+            <img src="/images/logo_black.svg" alt="Plant Site Logo">
+        </a>
+    </div>
+
+    <h1>프로필 수정</h1>
+    <form action="/users/edit-profile" method="post" enctype="multipart/form-data">
+        <label for="username">사용자 이름:</label>
+        <input type="text" id="username" name="username" value="<%= user.username %>" required>
+        
+        <label for="email">이메일:</label>
+        <input type="email" id="email" name="email" value="<%= user.email %>" required>
+    
+        <label for="password">새 비밀번호 (변경을 원하지 않으면 비워 두세요):</label>
+        <input type="password" id="password" name="password">
+    
+        <label for="profileImage">프로필 이미지:</label>
+        <input type="file" id="profileImage" name="profileImage">
+        
+        <button type="submit">업데이트</button>
+    </form>
+</body>
+</html>

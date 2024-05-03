@@ -1,0 +1,41 @@
+.search-form {
+    max-width: 935px; /* 인스타그램의 최대 너비 */
+    margin: 10px auto;
+    width: 100%;
+    margin-top: 60px;
+    padding-left: 20px;
+    
+}
+
+.search-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 10px;
+    width: calc(100% - 125px);
+}
+
+.search-form button[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.search-form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Optional: Adjust the style for mobile devices */
+@media screen and (max-width: 768px) {
+    .search-form input[type="text"] {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}

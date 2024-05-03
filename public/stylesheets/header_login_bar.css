@@ -1,0 +1,51 @@
+.login_bar {
+    font-family: Arial, sans-serif;
+    max-width: 935px; /* 인스타그램의 최대 너비 */
+    margin: 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+    text-decoration: none;
+    
+}
+
+.login_bar a {
+    color: white;
+    text-decoration: none;
+}
+
+/* 로그아웃 버튼 기본 스타일 */
+.btn-logout {
+    background-color: #ff4b5a; /* 밝은 빨간색 */
+    color: white; /* 텍스트 색상은 흰색 */
+    border: none; /* 테두리 제거 */
+    padding: 10px 20px; /* 패딩 조정 */
+    font-size: 16px; /* 글자 크기 */
+    border-radius: 5px; /* 모서리 둥글게 처리 */
+    transition: background-color 0.3s, transform 0.3s; /* 배경색과 변형에 대한 전환 효과 */
+}
+
+/* 로그아웃 버튼 호버 효과 */
+.btn-logout:hover {
+    background-color: #e04338; /* 호버 시 좀 더 어두운 빨간색 */
+    transform: scale(1.05); /* 버튼을 약간 확대 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+
+/* 로그아웃 버튼 포커스 및 활성화 효과 */
+.btn-logout:focus, .btn-logout:active {
+    outline: none; /* 포커스 시 외곽선 제거 */
+    box-shadow: 0 0 0 2px rgba(255, 75, 90, 0.5); /* 주변에 그림자 효과 추가 */
+}
+
+/* 호버 효과를 위한 스타일 */
+.login_bar a:hover {
+    color: #007bff; /* 링크에 호버 시 색상 변경 */
+    text-decoration: underline; /* 링크에 호버 시 밑줄 표시 */
+    cursor: pointer; /* 호버 시 커서 모양 변경 */
+}
+
+.login_bar a.btn:hover {
+    background-color: #007bff; /* 버튼에 호버 시 배경색 변경 */
+    color: #fff; /* 버튼에 호버 시 텍스트 색상 변경 */
+}
