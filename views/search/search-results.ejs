@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="/stylesheets/header_login_bar.css">
+    <link rel="stylesheet" href="/stylesheets/logo.css">
+    <link rel="stylesheet" href="/stylesheets/search.css">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="/stylesheets/miniprofile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+<body>
+    <div class="login_bar">
+        <% if (user) { %>
+            <span>
+                Welcome, <a href="/users/mypage"><%= user.username %></a>
+                <form action="/users/logout" method="GET" style="display: inline; margin-left: 10px;">
+                    <button type="submit" class="btn-logout">Logout</button>
+                </form>
+            </span>
+        <% } else { %>
+            <p>Welcome, Guest &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/users/login">Login</a> | <a href="/users/signup">Sign Up</a></p>
+        <% } %>
+    </div>
+
+    <div class="logo">
+        <a href="/">
+            <img src="images/logo.svg" alt="post Site Logo">
+        </a>
+    </div>
+
+    <form action="/search" method="GET" class="search-form">
+        <input type="text" name="query" placeholder="레시피 검색..." required>
+        <button type="submit" class="btn btn-primary">검색</button>
+    </form>
+
+    <div class="container mt-5">
+        <h1>Search Results for '<%= query %>'</h1>
+        <br><br>
+        <div class="row">
+            <% posts.forEach(function(post) { %>
+                <div class="col-md-3 mb-4">
+                    <div class="post-card" onclick="location.href='/posts/<%= post.id %>'">
+                         
+                        <div class="miniprofile_image">
+                            <% if (post.profile_image) { %> <!-- 레시피 작성자의 프로필 이미지가 존재하는지 확인 -->
+                                <a href="/users/profile/<%= post.author_id %>">
+                                    <img src="/uploads/profiles/<%= post.profile_image %>" alt="Profile Image" class="img-fluid rounded-circle">
+                                    <span><%= post.username %></span>
+                                </a>
+                            <% } else { %> <!-- 프로필 이미지가 없는 경우 기본 이미지 표시 -->
+                                <a href="/users/profile/<%= post.author_id %>">
+                                    <img src="/uploads/profiles/basic_profile.jpg" alt="Basic Profile Image" class="img-fluid rounded-circle">
+                                    <span><%= post.username %></span>
+                                </a>
+                            <% } %>                         
+                        </div>
+
+                        <% if (post.image_path) { %>
+                            <img src="/uploads/<%= post.image_path %>" class="card-img-top" alt="<%= post.title %>">
+                        <% } %>
+                        <div class="card-body">
+                            <h3 class="card-title"><%= post.title %></h3>
+                            <!-- <p class="card-text"><strong>소요시간:</strong> <%= post.time_required %> 분</p>
+                            <p class="card-text"><strong>양:</strong> <%= post.servings %> 인분</p> -->
+                            <p class="card-text"><strong>식물 종류:</strong> <%= post.plant_type %></p>
+                            <p class="card-text"><strong>재배 환경:</strong> <%= post.growth_environment %></p>
+
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

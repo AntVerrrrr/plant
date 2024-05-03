@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= post.title %></title>
+    <link rel="stylesheet" href="/stylesheets/logo.css">
+    <link rel="stylesheet" href="/stylesheets/write.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        /* 줄바꿈이 적용되도록 CSS 속성 추가 */
+        .post-text {
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <a href="/">
+            <img src="/images/logo.svg" alt="post Site Logo">
+        </a>
+    </div>
+    <div class="container mt-5">
+        <h2><%= post.title %></h2>
+        <!-- 이미지를 표시합니다. 이미지 경로는 데이터베이스에서 가져온 post.image_path를 사용합니다. -->
+        <img src="/uploads/<%= post.image_path %>" alt="post Image" style="max-width: 100%; height: auto;">
+        <br><br>
+        <!-- <p><strong>양:</strong> <%= post.servings %>인분</p>
+
+        <p><strong>소요시간:</strong> <%= post.time_required %>분</p><br><br> -->
+
+        <h3>식물 종류</h3>
+        <p class="post-text"><%= post.plant_type %></p><br><br>
+
+        <h3>재배 환경</h3>
+        <p class="post-text"><%= post.growth_environment %></p><br><br>
+
+        <h3>재배 방법</h3>
+        <!-- white-space: pre-line; 속성을 적용한 클래스 사용 -->
+        <p class="post-text"><%= post.instructions %></p><br><br>
+        
+
+        
+        <div class="like-button" id="like-btn" data-post-id="<%= post.id %>">
+            <% if (post.isLiked) { %>
+                <i id="like-icon" class="fas fa-heart" style="color: red;"></i>
+            <% } else { %>
+                <i id="like-icon" class="far fa-heart" style="color: gray;"></i>
+            <% } %>
+            <span id="like-count"><%= post.likes_count %> likes</span>
+        </div>
+
+        <br>
+
+        <a href="/" class="btn btn-primary">Back to Main</a>
+        <% if (user && user.id === post.author_id) { %>
+            <a href="/posts/<%= post.id %>/edit" class="btn btn-primary">Edit</a>
+            <form action="/posts/<%= post.id %>/delete" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        <% } %>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/javascripts/likeButton.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

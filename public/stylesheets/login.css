@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    padding-top: 20px;
+    color: white;
+    background-image: url('/images/login.jpg'); /* 배경 이미지 설정 */
+    background-size: cover; /* 배경 이미지가 화면에 꽉 차도록 설정 */
+    background-position: center; /* 배경 이미지를 가운데 정렬 */
+    background-repeat: no-repeat; /* 이미지 반복 없음 */
+    background-attachment: fixed; /* 배경 이미지 고정 */   
+}
+
+.container {
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    overflow: hidden; /* 이미지가 넘치지 않도록 설정 */
+    backdrop-filter: blur(5px); /* 배경을 흐리게 만들기 */
+    color: white;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+

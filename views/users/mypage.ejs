@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="/stylesheets/logo.css">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+    <link rel="stylesheet" href="/stylesheets/bigprofile.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="logo">
+        <a href="/">
+            <img src="/images/logo.svg" alt="Plant Site Logo">
+        </a>
+    </div>
+
+    <div class="container mt-5">
+        <h1>My Profile</h1>
+        <div class="profile-info">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="bigprofile_image">
+                        <!-- 프로필 이미지. 이미지가 없는 경우 기본 이미지 표시 -->
+                        <% if(user.profile_image) { %>
+                            <img src="/uploads/profiles/<%= user.profile_image %>" alt="Profile Image" class="img-fluid rounded-circle">
+                        <% } else { %>
+                            <img src="/uploads/profiles/basic_profile.jpg" alt="basic_profile_Image" class="img-fluid rounded-circle">
+                        <% } %>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <p><strong>Username:</strong> <%= user.username %></p>
+                    <p><strong>Email:</strong> <%= user.email %></p>
+                    <p id="follower-count"><strong>Followers:</strong> <span id="follower-number"><%= followerCount %></span></p> <!-- 팔로워 수 표시 -->         
+                    <a href="/users/confirm-password" class="btn btn-primary">Edit Profile</a><!-- 프로필 편집 링크 -->
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <!-- 내가 쓴 글 목록 -->
+        <h2>내가 쓴 글</h2>
+        <div class="row">
+            <% posts.forEach(function(post) { %>
+                <div class="col-md-3 mb-4">
+                    <div class="post-card" onclick="location.href='/posts/<%= post.id %>'">
+    
+                        <% if (post.image_path) { %>
+                            <img src="/uploads/<%= post.image_path %>" class="card-img-top" alt="<%= post.title %>">
+                        <% } %>
+                        <div class="card-body">
+                            <h3 class="card-title"><%= post.title %></h3>
+                          
+                            <p class="card-text"><strong>식물 종류:</strong> <%= post.plant_type %></p>
+                            <p class="card-text"><strong>재배 환경:</strong> <%= post.growth_environment %></p>
+
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

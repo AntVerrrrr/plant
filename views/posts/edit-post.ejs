@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post</title>
+    <!-- 부트스트랩 CSS 추가 -->
+    <link rel="stylesheet" href="/stylesheets/logo.css">
+    <link rel="stylesheet" href="/stylesheets/write.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="logo">
+        <a href="/">
+            <img src="/images/logo.svg" alt="post Site Logo">
+        </a>
+    </div>
+    
+    <div class="container mt-5">
+        <h2>Edit Post</h2>
+        <form action="/posts/<%= post.id %>/edit" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" class="form-control" id="title" name="title" value="<%= post.title %>" required>
+            </div>
+            <div class="form-group">
+                <label for="plant_type">식물 종류</label>
+                <textarea class="form-control" id="plant_type" name="plant_type" rows="4" required><%= post.plant_type %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="growth_environment">재배 환경</label>
+                <textarea class="form-control" id="growth_environment" name="growth_environment" rows="4" required><%= post.growth_environment %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="instructions">재배 방법</label>
+                <textarea class="form-control" id="instructions" name="instructions" rows="5" required><%= post.instructions %></textarea>
+            </div>
+            
+            <!-- 이미지 수정을 위한 추가 로직 필요 -->
+            <div class="form-group">
+                <label for="image">음식 사진</label>
+                <% if (post.image_path) { %>
+                    <div class="mb-2">
+                        <img src="/uploads/<%= post.image_path %>" alt="post Image" class="img-fluid">
+                    </div>
+                <% } %>
+                <input type="file" class="form-control" id="image" name="image">
+            </div>            
+            <button type="submit" class="btn btn-primary">레시피 수정</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 부트스트랩 JS 추가 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
