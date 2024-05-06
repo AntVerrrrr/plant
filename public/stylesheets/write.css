@@ -10,6 +10,9 @@ body {
 }
 
 .container {
+    max-width: 935px; /* 최대 너비 통일 */
+    margin: 0 auto; /* 가운데 정렬 */
+    
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
     background-color: rgba(0, 0, 0, 0.7);
@@ -17,8 +20,8 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
     overflow: hidden; /* 이미지가 넘치지 않도록 설정 */
-    backdrop-filter: blur(5px); /* 배경을 흐리게 만들기 */
     color: white;
+    backdrop-filter: blur(5px); /* 배경을 흐리게 만들기 */
     padding-top: 20px;
     padding-bottom: 30px;
 }

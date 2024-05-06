@@ -38,20 +38,18 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
-    width: calc(50% - 20px); /* 2열로 표시 */
+    width: calc(25% - 20px); /* 4열로 표시 */
     margin: 0 10px 20px;
+    height: 500px; /* 카드의 최소 높이 설정 */
     float: left;
     overflow: hidden; /* 이미지가 넘치지 않도록 설정 */
     color: white;
     backdrop-filter: blur(5px); /* 배경을 흐리게 만들기 */
-    height: 500px; /* 카드의 최소 높이 설정 */
 }
-
 
 .post-card:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     transform: scale(1.05);
-    
 }
 
 .card-img-top {
@@ -83,13 +81,20 @@ body {
     color: white;
 }
 
+/* 모바일에서는 1열로 표시 */
+@media (max-width: 767px) {
+    .post-card {
+        width: calc(100% - 20px); /* 1열로 표시 */
+        margin: 10px 10px; /* 모바일에서의 간격 */
+    }
+}
+
 /* Clearfix 스타일 추가 */
 .clearfix::after {
     content: "";
     display: table;
     clear: both;
 }
-
 
 /* 페이지네이션 스타일 */
 .pagination {
