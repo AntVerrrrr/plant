@@ -1,8 +1,14 @@
 .logo {
-    max-width: 266.67px; /* 로고의 최대 너비 */
+    /* max-width: 266.67px; 로고의 최대 너비 */
+    display: flex; /* Enables Flexbox */
+    flex-direction: column; /* Stacks items vertically */
     margin: 0px auto; /* 가운데 정렬 */
     margin-top: 30px;
     padding: 0px;
+    align-items: center;
 
 }
 
+.logo img {
+    width: 150px; /* Adjusts the size of the logo */
+}

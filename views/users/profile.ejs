@@ -3,21 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/header_login_bar.css">
     <link rel="stylesheet" href="/stylesheets/profile.css">
     <link rel="stylesheet" href="/stylesheets/logo.css">
     <link rel="stylesheet" href="/stylesheets/bigprofile.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
+    <div class="container mt-5">
+        <div class="login_bar">
+            <% if (user) { %>
+                <span>
+                    Welcome, <a href="/users/profile/<%= currentUser.id %>"><%= currentUser.username %></a>
+                    <form action="/users/logout" method="GET" style="display: inline; margin-left: 10px;">
+                        <button type="submit" class="btn-logout">Logout</button>
+                    </form>
+                </span>
+            <% } else { %>
+                <p>Welcome, Guest &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/users/login">Login</a> | <a href="/users/signup">Sign Up</a></p>
+            <% } %>
+        </div>
+    </div>
+    
     <div class="logo">
         <a href="/">
-            <img src="/images/logo.svg" alt="plant Site Logo">
+            <img src="/images/logo.svg" alt="Plant Site Logo">
         </a>
     </div>
 
-    <div class="container mt-5">
+    <div class="container">
         <h1><%= user.username %>'s Profile</h1>
-
         <div class="profile-info">
             <div class="row">
                 <div class="col-md-4">
@@ -28,8 +43,7 @@
                         <% } else { %>
                             <img src="/uploads/profiles/basic_profile.jpg" alt="basic_profile_Image" class="img-fluid rounded-circle">
                         <% } %>
-                    </div>
-                   
+                    </div>  
                 </div>
 
                 <div class="col-md-8">
@@ -37,30 +51,35 @@
                     <p><strong>Email:</strong> <%= user.email %></p>
                     <p id="follower-count"><strong>Followers:</strong> <span id="follower-number"><%= followerCount %></span></p> <!-- 팔로워 수 표시 -->
                    
-                    <% if(isFollowing) { %>
-                        <button id="unfollow-btn" data-user-id="<%= user.id %>" style="display:block;" class="btn btn-primary">Unfollow</button>
-                        <button id="follow-btn" data-user-id="<%= user.id %>" style="display:none;" class="btn btn-primary">Follow</button>
+                    <% if (isOwnProfile) { %>
+                        <button onclick="location.href='/users/confirm-password'" class="btn btn-secondary">개인정보 수정</button>
                     <% } else { %>
-                        <button id="unfollow-btn" data-user-id="<%= user.id %>" style="display:none;" class="btn btn-primary">Unfollow</button>
-                        <button id="follow-btn" data-user-id="<%= user.id %>" style="display:block;" class="btn btn-primary">Follow</button>
+                        <% if (isFollowing) { %>
+                            <button id="unfollow-btn" data-user-id="<%= user.id %>" style="display:block;" class="btn btn-primary">Unfollow</button>
+                            <button id="follow-btn" data-user-id="<%= user.id %>" style="display:none;" class="btn btn-primary">Follow</button>
+                        <% } else { %>
+                            <button id="unfollow-btn" data-user-id="<%= user.id %>" style="display:none;" class="btn btn-primary">Unfollow</button>
+                            <button id="follow-btn" data-user-id="<%= user.id %>" style="display:block;" class="btn btn-primary">Follow</button>
+                        <% } %>
                     <% } %>
                 </div>
             </div>
         </div>
+    </div>
 
-        <br><br>
+    <br><br>
+
+    <div class="container mt-5">
         <!-- 사용자 레시피 목록 -->
-        <h2><%= user.username %>가 쓴 글</h2>
+        <h2><%= user.username %>의 글</h2>
         <div class="row">
             <% posts.forEach(function(post) { %>
                 <div class="col-md-3 mb-4">
                     <div class="post-card" onclick="location.href='/posts/<%= post.id %>'">
-    
                         <% if (post.image_path) { %>
                             <img src="/uploads/<%= post.image_path %>" class="card-img-top" alt="<%= post.title %>">
                         <% } %>
                         <div class="card-body">             
-                            <!-- <p class="card-text">By <a href="/users/profile/<%= post.author_id %>"><%= post.username %></a></p>               -->
                             <h3 class="card-title"><%= post.title %></h3> 
                             <p class="card-text"><strong>식물 종류:</strong> <%= post.plant_type %></p>
                             <p class="card-text"><strong>재배 환경:</strong> <%= post.growth_environment %></p>
@@ -70,10 +89,9 @@
             <% }); %>
         </div>
     </div>
-
-
+    
+        
     <script src="/javascripts/followScript.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

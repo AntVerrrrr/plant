@@ -134,44 +134,44 @@ router.post('/:id/delete', (req, res) => {
 });
 
 
-// 좋아요 기능 처리
-router.post('/like/:postId', async (req, res) => {
-    const { postId } = req.params;
-    const userId = req.user.id; // 사용자 ID, 세션 등에서 얻어온다고 가정
 
-    try {
-        // 레시피를 데이터베이스에서 조회
-        const post = await post.findById(postId);
 
-        if (!post) {
-            return res.status(404).json({ success: false, message: 'post not found' });
-        }
-
-        // 좋아요 상태를 토글하고 좋아요 수 업데이트
-        let isLiked = false;
-        if (post.likes.includes(userId)) {
-            // 이미 좋아요를 누른 상태인 경우 좋아요 취소
-            post.likes.pull(userId);
-        } else {
-            // 좋아요를 누르지 않은 상태인 경우 좋아요 등록
-            post.likes.push(userId);
-            isLiked = true;
-        }
-
-        // 좋아요 수 업데이트
-        const likeCount = post.likes.length;
-
-        // 데이터베이스에 변경사항 저장
-        await post.save();
-
-        // 클라이언트에 응답 보내기
-        res.status(200).json({ success: true, isLiked, likeCount });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: 'Internal Server Error' });
+// >> 여기서 부터하기
+// 게시물 좋아요 처리
+router.post('/like/:postId', function(req, res) {
+    if (!req.isAuthenticated()) {
+        return res.status(401).json({ success: false, message: 'User not authenticated' });
     }
+
+    const userId = req.user.id;
+    const postId = req.params.postId;
+
+    connection.query('INSERT INTO likes (user_id, post_id) VALUES (?, ?)', [userId, postId], function(err) {
+        if (err) {
+            console.error("Error liking post: ", err);
+            return res.status(500).json({ success: false, message: 'Error liking post' });
+        }
+        res.json({ success: true, message: 'Post liked successfully' });
+    });
 });
 
+// 게시물 좋아요 취소 처리
+router.post('/unlike/:postId', function(req, res) {
+    if (!req.isAuthenticated()) {
+        return res.status(401).json({ success: false, message: 'User not authenticated' });
+    }
+
+    const userId = req.user.id;
+    const postId = req.params.postId;
+
+    connection.query('DELETE FROM likes WHERE user_id = ? AND post_id = ?', [userId, postId], function(err) {
+        if (err) {
+            console.error("Error unliking post: ", err);
+            return res.status(500).json({ success: false, message: 'Error unliking post' });
+        }
+        res.json({ success: true, message: 'Post unliked successfully' });
+    });
+});
 
 
 
